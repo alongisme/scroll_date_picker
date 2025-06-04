@@ -309,10 +309,19 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Row(
-          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
-          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
-          children: _getScrollDatePicker(),
+                NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification is ScrollEndNotification) {
+              debugPrint("ScrollEndNotification");
+              setState(() {});
+            }
+            return false;
+          },
+          child: Row(
+            mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
+            crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
+            children: _getScrollDatePicker(),
+          ),
         ),
         // Date Picker Indicator
         IgnorePointer(
